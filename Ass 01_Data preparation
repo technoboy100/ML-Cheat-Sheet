@@ -1,0 +1,65 @@
+import pandas as pd
+import numpy as np
+df =pd.read_csv ('Heart.csv')
+df
+
+# find shape of data
+df.shape
+
+#finding datatypes of each column
+df.dtypes
+
+# Find Mean age of patients
+df['Age'].mean
+
+#Now extract only Age, Sex, ChestPain, RestBP, Chol. Randomly divide dataset in training (75%) and testing (25%).
+
+
+gene=df[['Age', 'Sex', 'ChestPain', 'RestBP', 'Chol']]
+from sklearn.model_selection import train_test_split
+train,test=train_test_split(gene,test_size=0.25,random_state=10)
+train
+
+
+test
+
+train
+
+test
+
+# Finding out Zero's
+(df == 0).sum().sum()
+
+
+(df['Sex']==0).sum()
+
+(df =='typical').sum()
+
+df.isnull()
+
+#Find Missing Values
+df.isnull().sum()
+
+(df['Age']==0).sum
+
+(df==0).sum()
+
+(df==0).sum().sum()
+
+# part 2 confusion matrix
+
+TP=45
+FP=55
+FN=5
+TN=395
+Total=500
+
+recall=TP/(TP+FN)
+print("Recall :",recall)
+
+accuracy=(TP+TN)/Total
+print("Accuracy: ",accuracy)
+
+
+F1=2*(precision*recall)/(precision+recall)
+print("F1_score: ",F1)
