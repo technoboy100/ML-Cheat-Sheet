@@ -1,0 +1,74 @@
+
+ML Assignment-2 on Regression technique
+
+import pandas as pd
+import numpy as np
+from sklearn import linear_model
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("temperatures.csv")
+df.head()
+
+df.columns
+
+import seaborn as sns
+%matplotlib inline
+plt.xlabel("YEAR")
+plt.ylabel("JAN")
+plt.scatter(df.YEAR,df.JAN,color = 'red',marker = '^')
+new_df = df
+new_df.drop(df.iloc[:,2:18],inplace = True,axis = 1)
+new_df
+JanTemp = df.JAN
+JanTemp
+
+year = df.YEAR
+year
+
+new_df = new_df.drop("JAN",axis = 'columns')
+new_df
+
+import numpy as np
+import matplotlib.pyplot as plt
+from operator import mul
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn import metrics
+
+x = df.iloc[:,0:1].values
+y = df.iloc[:,1].values
+
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=1/3, random_state=0)
+
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(x_train,y_train)
+
+y_pred = regressor.predict(x_test)
+
+df = pd.DataFrame({'Actual': y_test.flatten(), 'Predicted': y_pred.flatten()})
+df
+
+print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred)) 
+print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred)) 
+print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
+
+from sklearn.metrics import mean_absolute_error
+print("MAE",mean_absolute_error(y_test,y_pred))
+
+from sklearn.metrics import mean_squared_error
+print("MSE",mean_squared_error(y_test,y_pred))
+
+from sklearn.metrics import r2_score
+print("r2_score",r2_score(y_test,y_pred))
+
+plt.xlabel("YEAR")
+plt.ylabel("JAN")
+plt.plot(x_train,regressor.predict(x_train),color="blue")
+plt.draw()
+
+plt.xlabel("YEAR")
+plt.ylabel("JAN")
+plt.plot(x_train,regressor.predict(x_train),color="maroon")
+plt.draw()
