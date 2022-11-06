@@ -1,0 +1,48 @@
+import pandas as pd
+import numpy as np
+
+import matplotlib.pyplot as plt
+data = pd.read_csv('Market_Basket_Optimisation.csv',header=None)
+data
+
+data.values.tolist()
+
+
+T = []
+for i in range(len(data)):
+    T.append([ str(data.values[i,j]) for j in range(0,20) if str(data.values[i,j])!='nan' ])
+    
+    
+   T
+   
+   
+   !pip install apyori
+from apyori import apriori
+rules = apriori(T,min_support=0.003,min_confidence=0.35,min_lift=3,min_length=2)
+   
+   list(rules)
+   
+   
+   D = data.values.ravel()
+D
+
+
+
+import collections
+val = collections.Counter(D)
+val
+
+
+val.items()
+
+
+
+df = pd.DataFrame(val.items())
+df
+
+
+df = df.rename(columns={0:'items',1:'Total'})
+df
+
+
+df.sort_values(by='Total',ascending=False)[1:]
