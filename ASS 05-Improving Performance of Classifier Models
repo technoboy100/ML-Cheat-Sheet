@@ -1,0 +1,79 @@
+import pandas as pd
+import numpy as np
+
+df=pd.read_csv('spam.csv',encoding='latin1')
+df.head()
+
+df=df.rename(columns={'v1':'label','v2':'text'})
+df.head()
+
+print("number of rows: ",len(df))
+
+df.label.value_counts()
+
+df.describe()
+
+df.loc[:,'label']=df.label.map({'ham':0,'spam':1})
+
+df.head()
+
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.model_selection import train_test_split
+
+count=CountVectorizer()
+
+text=count.fit_transform(df['text'])
+
+x_train,x_test,y_train,y_test=train_test_split(text,df['label'],test_size=0.20,random_state=1)
+
+print(x_train.shape)
+
+
+print(x_test.shape)
+
+
+from sklearn.naive_bayes import BernoulliNB
+
+model=BernoulliNB()
+model.fit(x_train,y_train)
+prediction=model.predict(x_test)
+print(prediction)
+
+
+from sklearn.metrics import accuracy_score,precision_score,recall_score,f1_score
+
+print(BernoulliNB)
+
+
+print("acccuracy_score:{}".format(accuracy_score(y_test,prediction)))
+
+
+print("precision_score:{}".format(precision_score(y_test,prediction)))
+
+print("precision_score:{}".format(precision_score(y_test,prediction)))
+
+print("f1_score:{}".format(f1_score(y_test,prediction)))
+
+
+from sklearn.naive_bayes import MultinomialNB
+model=MultinomialNB()
+model.fit(x_train,y_train)
+
+
+prediction=model.predict(x_test)
+print(prediction)
+
+
+from sklearn.metrics import accuracy_score,precision_score,recall_score,f1_score
+
+
+print(MultinomialNB)
+
+
+print("acccuracy_score:{}".format(accuracy_score(y_test,prediction)))
+
+print("precision_score:{}".format(precision_score(y_test,prediction)))
+
+print("recall_score:{}".format(recall_score(y_test,prediction)))
+
+print("f1_score:{}".format(f1_score(y_test,prediction)))
